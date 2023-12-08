@@ -11,7 +11,7 @@ README.md
 # compiled output
 /dist
 /node_modules
-tsconfig.json
+#tsconfig.json
 
 # Logs
 logs
