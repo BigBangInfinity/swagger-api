@@ -1,19 +1,10 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as serverless from '@vendia/serverless-express';
-import { ExpressAdapter } from '@nestjs/platform-express';
-import express from 'express';
-
-let server: any;
+import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const expressApp = express();
-  const adapter = new ExpressAdapter(expressApp);
-
-  const app = await NestFactory.create(AppModule, adapter);
+  const app = await NestFactory.create(AppModule);
   app.enableCors();
-
   const config = new DocumentBuilder()
     .setTitle('API example')
     .setDescription('The API description')
@@ -23,14 +14,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('route', app, document);
 
-  await app.init();
-  return serverless.createServer(expressApp);
+  await app.listen(3001);
 }
-
-bootstrap().then(s => {
-  server = s;
-});
-
-export const handler = (event, context) => {
-  return serverless.proxy(server, event, context);
-};
+bootstrap();
