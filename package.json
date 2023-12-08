@@ -1,6 +1,9 @@
 {
   "name": "my-api",
   "version": "0.0.1",
+  "engines": {
+    "node": "18.18.2"
+  },
   "description": "",
   "author": "",
   "private": true,
@@ -70,4 +73,6 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }
+
+
 }
